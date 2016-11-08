@@ -1,3 +1,7 @@
+body {
+  background-image: url(../images/delorean.jpg);
+}
+
 .btn-default {
   background-color: teal;
   color: white;

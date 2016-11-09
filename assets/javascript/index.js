@@ -38,31 +38,40 @@ $(document).ready(function() {
     };
 
 
-    //create a variable that will pull the category usind data- and set it as the query search term
-    var category = $(this).data('category');
-
-    //pull from the Giphy API using the variable category and set it as a variable
-    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + category + "&api_key=dc6zaTOxFJmzC&limit=10";
-
-
-    //append the dom to list the 10 buttons using a for loop through the length of the number of buttons
+    //call the function to append the buttons
     displayButtons();
 
-    function displayButtons() {
-        var buttonsHtml = "";
-        for (var i = 0; i < automobiles.cars.length; i++) {
-            var buttons = automobiles.cars[i];
-            var buttonStr = buttons.car;
-            buttonsHtml = buttonsHtml + '<div>' + buttonStr + '</div>';
-
-        }
-        $('#buttonCategory').html(buttonsHtml);
-        console.log(buttonsHtml);
-    }
-
     //capture the on click of each button using jquery to query the giphy api for that search term 
-    //use ajax request data
-    //use .done to return data
+    $('button').on('click', function() {
+
+        //create a variable that will pull the category usind data- and set it as the query search term
+        var category = $(this).data('category');
+
+        //pull from the Giphy API using the variable category and set it as a variable
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + category + "&api_key=dc6zaTOxFJmzC&limit=10";
+
+        //use ajax request data
+        $.ajax({ url: queryURL, method: 'GET' })
+            //use .done to return data
+            .done(function(response) {
+                var results = response.data;
+
+                //use a for loop to display the number of results that come back to 
+                for (var i = 0; i < results.length; i++) {
+
+                    //create a rating variable set to the index of the results of the giphy api
+                    var rating = results[i].rating;
+
+                    //create a new variable that adds a p tag to the images div to display the rating
+                    var p = $('<p>').text('Rating:' + rating + gifs).append('#images');
+
+                    //create a gifs variable set to the images div
+                    var gifs = $('#images').attr('src', results[i].images.fixed_height_still.url);
+
+                }
+            });
+
+    });
     //display the still image
     //use an if statement to capture the on click of the still image and append the image to display the gif
     //pull the data from the user input box when the submit button is clicked
@@ -70,4 +79,17 @@ $(document).ready(function() {
     //append the dom a new button with that name
     //use return false
     //remove all your console.logs before submitting
+
+    //function to append the dom to list the 10 buttons using a for loop through the length of the object to create the necessary number of buttons 
+    function displayButtons() {
+        var buttonsHtml = "";
+        for (var i = 0; i < automobiles.cars.length; i++) {
+            var buttons = automobiles.cars[i];
+            var buttonStr = buttons.car;
+            buttonsHtml = buttonsHtml + '<button>' + buttonStr + '</button>';
+
+        }
+        $('#buttonCategory').html(buttonsHtml);
+        console.log(buttonsHtml);
+    }
 });

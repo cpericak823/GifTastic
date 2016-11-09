@@ -4,5 +4,8 @@ body {
 
 .btn-default {
   background-color: teal;
-  color: white;
+}
+
+button {
+  margin: 10px;
 }

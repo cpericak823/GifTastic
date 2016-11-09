@@ -48,7 +48,7 @@ $(document).ready(function() {
         var category = $(this).data('category');
 
         //pull from the Giphy API using the variable category and set it as a variable
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + category + "&api_key=dc6zaTOxFJmzC&limit=10";
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + category + "&api_key=dc6zaTOxFJmzC";
 
         //use ajax request data
         $.ajax({ url: queryURL, method: 'GET' })
@@ -59,15 +59,25 @@ $(document).ready(function() {
                 //use a for loop to display the number of results that come back to 
                 for (var i = 0; i < results.length; i++) {
 
+                    //create a variable set to the images div
+                    var gifDiv = $('#images');
                     //create a rating variable set to the index of the results of the giphy api
                     var rating = results[i].rating;
 
                     //create a new variable that adds a p tag to the images div to display the rating
-                    var p = $('<p>').text('Rating:' + rating + gifs).append('#images');
+                    var p = $('<p>').text('Rating:' + rating);
 
                     //create a gifs variable set to the images div
-                    var gifs = $('#images').attr('src', results[i].images.fixed_height_still.url);
+                    var gifs = $('#images');
+                    gifs.attr('src', results[i].images.fixed_height.url);
 
+
+                    gifDiv.append(p);
+                    gifDiv.append(gifs);
+
+                    $('#gifsAppearHere').prepend(gifDiv);
+
+                    console.log('linked to api');
                 }
             });
 

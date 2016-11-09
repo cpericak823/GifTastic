@@ -84,7 +84,14 @@ $(document).ready(function() {
     });
     //display the still image
     //use an if statement to capture the on click of the still image and append the image to display the gif
+
+
     //pull the data from the user input box when the submit button is clicked
+// $('#submit').on('submit', function() {
+
+            // 	var userInput = $('#submit')
+            // });
+
     //use .val().trim();
     //append the dom a new button with that name
     //use return false

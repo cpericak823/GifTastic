@@ -75,7 +75,7 @@ $(document).ready(function() {
                     gifDiv.append(p);
                     gifDiv.append(gifs);
 
-                    $('#gifsAppearHere').prepend(gifDiv);
+                    $('#images').append(gifDiv);
 
                     console.log('linked to api');
                 }

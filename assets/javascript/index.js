@@ -1,8 +1,8 @@
 //load the page
 $(document).ready(function() {
-    //list your global variables:
 
-    //create a variable that's set as an object 
+    //Variables:
+    //create a variable that's set to an object 
     var automobiles = {
         cars: [{
             car: 'Porsche'
@@ -37,7 +37,7 @@ $(document).ready(function() {
         }]
     };
 
-
+    //Functions:
     //call the function to append the buttons
     displayButtons();
 
@@ -52,34 +52,41 @@ $(document).ready(function() {
 
         //use ajax request data
         $.ajax({ url: queryURL, method: 'GET' })
-            //use .done to return data
-            .done(function(response) {
-                var results = response.data;
 
-                //use a for loop to display the number of results that come back to 
-                for (var i = 0; i < results.length; i++) {
+        //use .done to return data
+        .done(function(response) {
+            var results = response.data;
 
-                    //create a variable set to the images div
-                    var gifDiv = $('#images');
-                    //create a rating variable set to the index of the results of the giphy api
-                    var rating = results[i].rating;
+            //use a for loop to display the number of results that come back to 
+            for (var i = 0; i < results.length; i++) {
 
-                    //create a new variable that adds a p tag to the images div to display the rating
-                    var p = $('<p>').text('Rating:' + rating);
+                //create a variable set to the images div
+                var gifDiv = $('#images');
 
-                    //create a gifs variable set to the images div
-                    var gifs = $('#images');
-                    gifs.attr('src', results[i].images.fixed_height.url);
+                //create a rating variable set to the index of the results of the giphy api
+                var rating = results[i].rating;
 
+                //create a new variable that adds a p tag to the images div to display the rating
+                var p = $('<p>').text('Rating:' + rating);
 
-                    gifDiv.append(p);
-                    gifDiv.append(gifs);
+                //create a gifs variable set to the images div
+                var gifs = $('#images');
 
-                    $('#images').append(gifDiv);
+                //add an atrribute to the gif variable called source and pull the link for the api results
+                gifs.attr('src', results[i].images.fixed_height.url);
 
-                    console.log('linked to api');
-                }
-            });
+                //append the variable gifDiv to include the rating in the p tag
+                gifDiv.append(p);
+
+                //append the variable gifDiv to also include the gifs themselves in the gif variable
+                gifDiv.append(gifs);
+
+                //append the html id images with the gifDiv variable
+                $('#images').append(gifDiv);
+
+                console.log('linked to api');
+            }
+        });
 
     });
     //display the still image
@@ -87,12 +94,24 @@ $(document).ready(function() {
 
 
     //pull the data from the user input box when the submit button is clicked
-// $('#submit').on('submit', function() {
+    $('addCategory').on('click', function() {
+        //create a new variable set to the value of the userinput box and subtract any spaces before or after the text
+        var userInput = $('#newCategory').val().trim();
 
-            // 	var userInput = $('#submit')
-            // });
+        //create a new variable set to a button 
+        var userCategory = $('<button>');
 
-    //use .val().trim();
+        //add an attribute to the userCategory variable equal to the userInput variable
+        userCategory.attr("id", "userInput");
+
+        //append the userCategory to a new button element with the userInput as the name
+        userCategory.append($("<button>" + userInput + "</button>"));
+
+        //append the buttonCategory div to include the new variable userCategory
+        userCategory.append($('#buttonCategory'));
+    });
+
+
     //append the dom a new button with that name
     //use return false
     //remove all your console.logs before submitting

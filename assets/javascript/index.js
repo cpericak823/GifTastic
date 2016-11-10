@@ -47,6 +47,7 @@ $(document).ready(function() {
         //create a variable that will pull the category usind data- and set it as the query search term
         var category = $(this).data('category');
 
+
         //pull from the Giphy API using the variable category and set it as a variable
         var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + category + "&api_key=dc6zaTOxFJmzC";
 
@@ -70,7 +71,7 @@ $(document).ready(function() {
                 var p = $('<p>').text('Rating:' + rating);
 
                 //create a gifs variable set to the images div
-                var gifs = $('#images');
+                var gifs = $('<img>');
 
                 //add an atrribute to the gif variable called source and pull the link for the api results
                 gifs.attr('src', results[i].images.fixed_height.url);
@@ -84,7 +85,6 @@ $(document).ready(function() {
                 //append the html id images with the gifDiv variable
                 $('#images').append(gifDiv);
 
-                console.log('linked to api');
             }
         });
 
@@ -118,14 +118,15 @@ $(document).ready(function() {
 
     //function to append the dom to list the 10 buttons using a for loop through the length of the object to create the necessary number of buttons 
     function displayButtons() {
-        var buttonsHtml = "";
+
+        $('#buttonCategory').empty();
         for (var i = 0; i < automobiles.cars.length; i++) {
             var buttons = automobiles.cars[i];
             var buttonStr = buttons.car;
-            buttonsHtml = buttonsHtml + '<button>' + buttonStr + '</button>';
+            var button = $('<button>').attr("data-category", buttonStr).text(buttonStr);
+            $('#buttonCategory').append(button);
 
         }
-        $('#buttonCategory').html(buttonsHtml);
-        console.log(buttonsHtml);
+
     }
 });

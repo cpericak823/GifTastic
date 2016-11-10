@@ -42,11 +42,10 @@ $(document).ready(function() {
     displayButtons();
 
     //capture the on click of each button using jquery to query the giphy api for that search term 
-    $('button').on('click', function() {
+    $(document).on('click', "button", function() {
 
         //create a variable that will pull the category usind data- and set it as the query search term
         var category = $(this).data('category');
-
 
         //pull from the Giphy API using the variable category and set it as a variable
         var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + category + "&api_key=dc6zaTOxFJmzC";
@@ -57,6 +56,10 @@ $(document).ready(function() {
         //use .done to return data
         .done(function(response) {
             var results = response.data;
+
+            //emty the images div before showing the gifs
+
+            $('#images').empty();
 
             //use a for loop to display the number of results that come back to 
             for (var i = 0; i < results.length; i++) {
@@ -84,36 +87,35 @@ $(document).ready(function() {
 
                 //append the html id images with the gifDiv variable
                 $('#images').append(gifDiv);
-
             }
         });
 
     });
+
     //display the still image
     //use an if statement to capture the on click of the still image and append the image to display the gif
 
 
     //pull the data from the user input box when the submit button is clicked
-    $('addCategory').on('click', function() {
+    $('#addCategory').on('click', function() {
+
         //create a new variable set to the value of the userinput box and subtract any spaces before or after the text
         var userInput = $('#newCategory').val().trim();
 
-        //create a new variable set to a button 
-        var userCategory = $('<button>');
-
-        //add an attribute to the userCategory variable equal to the userInput variable
-        userCategory.attr("id", "userInput");
-
-        //append the userCategory to a new button element with the userInput as the name
-        userCategory.append($("<button>" + userInput + "</button>"));
+        //create a new variable set to a button with an attribute of data-category and the userinput
+        var userCategory = $('<button>').attr("data-category", userInput).text(userInput);
 
         //append the buttonCategory div to include the new variable userCategory
-        userCategory.append($('#buttonCategory'));
+        $('#buttonCategory').append(userCategory);
+
+        console.log(userCategory);
+
+        return false;
     });
 
 
     //append the dom a new button with that name
-    //use return false
+
     //remove all your console.logs before submitting
 
     //function to append the dom to list the 10 buttons using a for loop through the length of the object to create the necessary number of buttons 

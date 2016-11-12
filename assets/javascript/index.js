@@ -48,14 +48,15 @@ $(document).ready(function() {
         for (var i = 0; i < automobiles.cars.length; i++) {
             var buttons = automobiles.cars[i];
             var buttonStr = buttons.car;
-            var button = $('<button>').attr("data-category", buttonStr).text(buttonStr);
+            var button = $('<button>').attr("data-category", buttonStr).text(buttonStr).addClass('gifRequest');
+
             $('#buttonCategory').append(button);
 
         }
 
     }
     //capture the on click of each button using jquery to query the giphy api for that search term 
-    $(document).on('click', "button", function() {
+    $(document).on('click', '.gifRequest', function() {
 
         //create a variable that will pull the category usind data- and set it as the query search term
         var category = $(this).data('category');
@@ -89,7 +90,7 @@ $(document).ready(function() {
                 var gifs = $('<img>').addClass('gifImage');
 
                 //add an atrribute to the gif variable called source and pull the link for the api results and displays the still image
-                gifs.attr('src', results[i].images.fixed_width_still.url).attr('data-state', 'still').attr('data-still', results[i].images.fixed_width_still.url).attr('data-animate', results[i].images.fixed_height.url);
+                gifs.attr('src', results[i].images.fixed_width_still.url).attr('data-state', 'still').attr('data-still', results[i].images.fixed_width_still.url).attr('data-animate', results[i].images.fixed_width.url);
 
                 //append the variable gifDiv to include the rating in the p tag
                 gifDiv.append(gifs);
@@ -103,31 +104,41 @@ $(document).ready(function() {
         });
     });
     //capture an on click of the gifs
-    $('.gifImage').on('click', function() {
+    $(document).on('click', '.gifImage', function() {
         //set a variable equal to the images with the attribute of data state
         var state = $(this).attr('data-state');
 
-        //use an if statement to toggle between the  still image and append the image to display the gif
+        //if state equals still, do the following:
         if (state === 'still') {
+
+            //set this to have an attribute of the source and a data-animate
             $(this).attr('src', $(this).data('animate'));
+
+            //also set this to have an attribute of the data-state and animate
             $(this).attr('data-state', 'animate');
-        } else {
+
+        } else { //otherwise do:
+
+            //set the attribute to the source with a data-still
             $(this).attr('src', $(this).data('still'));
+
+            //set another attribut to data-state is still
             $(this).attr('data-state', 'still');
         }
     });
 
     //pull the data from the user input box when the submit button is clicked
-    $('#addCategory').on('click', function() {
+    $('#add-category').on('click', function() {
 
         //create a new variable set to the value of the userinput box and subtract any spaces before or after the text
-        var userInput = $('#newCategory').val().trim();
+        var userInput = $('#new-category').val().trim();
 
         //create a new variable set to a button with an attribute of data-category and the userinput
-        var userCategory = $('<button>').attr("data-category", userInput).text(userInput);
-
-        //append the buttonCategory div to include the new variable userCategory
-        $('#buttonCategory').append(userCategory);
+        // var userCategory = $('<button>').attr("data-category", userInput).text(userInput);
+        automobiles.cars.push({
+            car: userInput
+        });
+        displayButtons();
 
         return false;
     });

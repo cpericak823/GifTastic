@@ -131,13 +131,18 @@ $(document).ready(function() {
 
         //create a new variable set to the value of the userinput box and subtract any spaces before or after the text
         var userInput = $('#new-category').val().trim();
+        if (userInput === "") {
+            return false;
+        } else {
+            $('#new-category').val("");
+            //create a new variable set to a button with an attribute of data-category and the userinput
+            automobiles.cars.push({
+                car: userInput
+            });
+            //call the display buttons function again to add the buttons
+            displayButtons();
+            return false;
+        }
 
-        //create a new variable set to a button with an attribute of data-category and the userinput
-        automobiles.cars.push({
-            car: userInput
-        });
-        //call the display buttons function again to add the buttons
-        displayButtons();
-        return false;
     });
 });

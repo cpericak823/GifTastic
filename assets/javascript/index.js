@@ -51,9 +51,7 @@ $(document).ready(function() {
             var button = $('<button>').attr("data-category", buttonStr).text(buttonStr).addClass('gifRequest');
 
             $('#buttonCategory').append(button);
-
         }
-
     }
     //capture the on click of each button using jquery to query the giphy api for that search term 
     $(document).on('click', '.gifRequest', function() {
@@ -103,6 +101,7 @@ $(document).ready(function() {
             }
         });
     });
+
     //capture an on click of the gifs
     $(document).on('click', '.gifImage', function() {
         //set a variable equal to the images with the attribute of data state
@@ -134,12 +133,11 @@ $(document).ready(function() {
         var userInput = $('#new-category').val().trim();
 
         //create a new variable set to a button with an attribute of data-category and the userinput
-        // var userCategory = $('<button>').attr("data-category", userInput).text(userInput);
         automobiles.cars.push({
             car: userInput
         });
+        //call the display buttons function again to add the buttons
         displayButtons();
-
         return false;
     });
 });

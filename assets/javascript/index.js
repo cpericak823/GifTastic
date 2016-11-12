@@ -64,8 +64,9 @@ $(document).ready(function() {
             //use a for loop to display the number of results that come back to 
             for (var i = 0; i < results.length; i++) {
 
+
                 //create a variable set to the images div
-                var gifDiv = $('#images');
+                var gifDiv = $('<div>').addClass('col-md-4');
 
                 //create a rating variable set to the index of the results of the giphy api
                 var rating = results[i].rating;
@@ -73,11 +74,12 @@ $(document).ready(function() {
                 //create a new variable that adds a p tag to the images div to display the rating
                 var p = $('<p>').text('Rating:' + rating);
 
+
                 //create a gifs variable set to the images div
                 var gifs = $('<img>');
 
-                //add an atrribute to the gif variable called source and pull the link for the api results
-                gifs.attr('src', results[i].images.fixed_height.url);
+                //add an atrribute to the gif variable called source and pull the link for the api results and displays the still image
+                gifs.attr('src', results[i].images.fixed_width_still.url).attr("data-state", "still").attr("data-still", results[i].images.fixed_width_still.url).attr("data-animate", results[i].images.fixed_height.url);
 
                 //append the variable gifDiv to include the rating in the p tag
                 gifDiv.append(p);
@@ -92,7 +94,6 @@ $(document).ready(function() {
 
     });
 
-    //display the still image
     //use an if statement to capture the on click of the still image and append the image to display the gif
 
 

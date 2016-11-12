@@ -9,3 +9,9 @@ body {
 button {
   margin: 10px;
 }
+
+#images {
+  font-weight: bolder;
+  font-size: 20px;
+  color: purple;
+}
